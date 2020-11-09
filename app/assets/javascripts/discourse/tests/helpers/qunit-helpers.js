@@ -144,6 +144,8 @@ export function discourseModule(name, options) {
         this.siteSettings = currentSettings();
       });
 
+      this.moduleName = name;
+
       options.call(this, hooks);
     });
 

@@ -26,6 +26,7 @@ define("@ember/test-helpers", () => {
     getApplication() {
       return _app;
     },
+    TestModuleForComponent: window.TestModuleForComponent,
   };
   ["click", "visit", "currentURL", "fillIn", "setResolver"].forEach((attr) => {
     helpers[attr] = function () {
