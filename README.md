@@ -1,3 +1,24 @@
+## Adapted for Vangst
+
+This fork of Discourse has been adapted for use at Vangst. Primarily, deploying to Heroku and any customizations.
+
+### Development/Deployment
+
+Clone this repo in the normal way.
+
+Make any adjustments to the stock Discourse in the `vangst` branch. Deploy this branch to Heroku instead of `master`.
+
+### Pulling in upstream updates
+
+0. Add upstream Discourse do your remotes: `git remote add upstream https://github.com/discourse/discourse.git`
+1. Checkout `master`: `git checkout master`
+2. Pull upstream changes: `git pull upstream`
+3. Rebase `vangst` branch: `git rebase master`
+
+Any conflicts with upstream changes will be surfaced during the rebase step.
+
+********************************
+
 <a href="https://www.discourse.org/"><img src=
 "https://user-images.githubusercontent.com/1681963/52239617-e2683480-289c-11e9-922b-5da55472e5b4.png"
  width="300px"></a>

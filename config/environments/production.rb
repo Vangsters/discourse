@@ -22,7 +22,10 @@ Discourse::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.log_level = :info
+  Rails.logger = Logger.new(STDOUT)
+  Rails.logger.level = Logger::DEBUG
+  config.log_level = :debug
+  config.active_record.verbose_query_logs = true
 
   if GlobalSetting.smtp_address
     settings = {

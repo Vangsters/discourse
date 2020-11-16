@@ -33,8 +33,9 @@ else
   # By default, the Unicorn logger will write to stderr.
   # Additionally, some applications/frameworks log to stderr or stdout,
   # so prevent them from going to /dev/null when daemonized here:
-  stderr_path "#{discourse_path}/log/unicorn.stderr.log"
-  stdout_path "#{discourse_path}/log/unicorn.stdout.log"
+  logger Logger.new($stdout)
+  # stderr_path "#{discourse_path}/log/unicorn.stderr.log"
+  # stdout_path "#{discourse_path}/log/unicorn.stdout.log"
   # nuke workers after 30 seconds instead of 60 seconds (the default)
   timeout 30
 end
