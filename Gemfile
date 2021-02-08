@@ -246,3 +246,8 @@ gem 'colored2', require: false
 gem 'maxminddb'
 
 gem 'rails_failover', require: false
+
+# Vangst customizations below
+ruby '2.7.2'
+gem 'newrelic_rpm'
+gem 'sentry-raven'

@@ -1,6 +1,6 @@
 ## Adapted for Vangst
 
-This fork of Discourse has been adapted for use at Vangst. Primarily, deploying to Heroku and any customizations.
+This fork of Discourse has been adapted for use at Vangst. Primarily, deploying to Heroku and any customizations. It is desirable to make as few changes to Discourse code as possible to make upgrades easier. Check [here](https://github.com/vangst/discourse/compare/master...vangst:vangst) for all customizations.
 
 ### Development/Deployment
 
@@ -8,14 +8,37 @@ Clone this repo in the normal way.
 
 Make any adjustments to the stock Discourse in the `vangst` branch. Deploy this branch to Heroku instead of `master`.
 
-### Pulling in upstream updates
+### Setting up a new Heroku deployment
 
-0. Add upstream Discourse do your remotes: `git remote add upstream https://github.com/discourse/discourse.git`
+1. Create the Heroku app
+1. Configure env vars based on existing app, eg `DISCOURSE_HOSTNAME`
+1. Add Postgres addon
+1. Add Redis addon, needs version 5, see note below `heroku addons:create heroku-redis:premium-0 --version 5 -a new-app`
+1. Map `DISCOURSE_` vars for Postgres and Redis, see note below
+1. Push the `vangst` branch to the new Heroku app
+1. `heroku run rake db:migrate -a new-app`
+1. `heroku run bash -a new-app` and then `bundle exec rake admin:create`
+1. `heroku restart -a new-app`
+1. To hook it up to Oogst, you'll need to log in via the UI and create a global API key
+
+Other things you may want to do:
+- Set up domains with `heroku domains:add`
+- Set up SSL with `heroku certs:auto:enable`
+- Copy Discourse config from another app. The "Only show overridden" feature in Discourse settings UI is helpful here.
+
+### Pulling in upstream changes
+
+1. Add upstream Discourse do your remotes: `git remote add upstream https://github.com/discourse/discourse.git`
 1. Checkout `master`: `git checkout master`
-2. Pull upstream changes: `git pull upstream`
-3. Rebase `vangst` branch: `git rebase master`
+1. Pull upstream changes: `git pull upstream`
+1. Rebase `vangst` branch: `git rebase master`
 
 Any conflicts with upstream changes will be surfaced during the rebase step.
+
+### Odd things
+- Discourse expects env vars to be under `DISCOURSE_` namespace, so env vars from `DATABASE_URL` and `REDIS_URL` have been copied to their corresponding `DISCOURSE_` vars. This means that if either `DATABASE_URL` or `REDIS_URL` change, the Discourse variants need updating.
+- Heroku Redis 6 requires SSL/TLS, but Discourse by default has SSL turned off. Current deployments use Redis 5.
+- The `USE_SPROCKETS_UGLIFY` env var is needed to use sprockets to uglify FE code instead of Node as the Node approach errors.
 
 ********************************
 
