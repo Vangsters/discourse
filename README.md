@@ -30,7 +30,7 @@ Other things you may want to do:
 
 1. Add upstream Discourse do your remotes: `git remote add upstream https://github.com/discourse/discourse.git`
 1. Checkout `master`: `git checkout master`
-1. Pull upstream changes: `git pull upstream`
+1. Pull upstream changes: `git pull upstream master`
 1. Rebase `vangst` branch: `git rebase master`
 
 Any conflicts with upstream changes will be surfaced during the rebase step.
