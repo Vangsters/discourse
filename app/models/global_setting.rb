@@ -202,6 +202,8 @@ class GlobalSetting
         c[:id] = nil if redis_skip_client_commands
         c[:ssl] = true if redis_use_ssl
 
+        c = redis_config_from_env_var
+
         c.freeze
       end
   end
@@ -226,8 +228,23 @@ class GlobalSetting
         c[:id] = nil if message_bus_redis_skip_client_commands
         c[:ssl] = true if redis_use_ssl
 
+        c = redis_config_from_env_var
+
         c.freeze
       end
+  end
+
+  # This construct the redis config from REDIS_URL, which could change at any
+  # time if Heroku performs maintenance or we upgrade the instance.
+  def self.redis_config_from_env_var
+    uri = URI(ENV['REDIS_URL'])
+    {
+      host: uri.host,
+      port: uri.port,
+      password: uri.password,
+      # Don't verify because Heroku uses a self-signed cert
+      ssl_params: {verify_mode: OpenSSL::SSL::VERIFY_NONE}
+    }
   end
 
   # test only
