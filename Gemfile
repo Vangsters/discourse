@@ -250,4 +250,6 @@ gem 'rails_failover', require: false
 # Vangst customizations below
 ruby '2.7.2'
 gem 'newrelic_rpm'
-gem 'sentry-raven'
+gem 'sentry-ruby'
+gem 'sentry-rails'
+gem 'sentry-sidekiq'
