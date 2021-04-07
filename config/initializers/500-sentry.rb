@@ -12,9 +12,6 @@ Sentry.init do |config|
   # Provide Rails-specific breadcrumbs in errors
   config.breadcrumbs_logger = [:active_support_logger]
 
-  # Enable performance monitoring
-  config.traces_sample_rate = 0.5
-
   # Filter sensitive data out of error
   filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters)
   config.before_send = lambda do |event, hint|
