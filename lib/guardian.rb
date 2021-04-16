@@ -78,6 +78,16 @@ class Guardian
   end
 
   def authenticated?
+
+
+
+    # return true here makes canCreateTopic true permanently
+
+
+
+
+
+
     @user.present?
   end
 

@@ -60,6 +60,8 @@ class Auth::DefaultCurrentUserProvider
 
   # our current user, return nil if none is found
   def current_user
+    # return nil here forces canCreateTopic to be false
+
     return @env[CURRENT_USER_KEY] if @env.key?(CURRENT_USER_KEY)
 
     # bypass if we have the shared session header
@@ -173,6 +175,15 @@ class Auth::DefaultCurrentUserProvider
         u.update_ip_address!(ip)
       end
     end
+
+
+
+    # return nil# here also returns false...?
+
+
+
+
+
 
     @env[CURRENT_USER_KEY] = current_user
   end
